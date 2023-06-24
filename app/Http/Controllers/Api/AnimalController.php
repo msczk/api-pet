@@ -15,7 +15,7 @@ class AnimalController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        AnimalResource::collection(Animal::all());
+        return AnimalResource::collection(Animal::all());
     }
 
     /**
@@ -31,7 +31,7 @@ class AnimalController extends Controller
      */
     public function show(Animal $animal)
     {
-        //
+        return new AnimalResource($animal);
     }
 
     /**
