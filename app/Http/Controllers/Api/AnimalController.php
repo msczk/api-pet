@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AnimalStoreRequest;
 use App\Http\Resources\AnimalResource;
 use App\Models\Animal;
 use Illuminate\Http\Request;
@@ -21,15 +22,16 @@ class AnimalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AnimalStoreRequest $request): AnimalResource
     {
-        //
+        $animal = Animal::create($request->all());
+        return new AnimalResource($animal);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Animal $animal)
+    public function show(Animal $animal): AnimalResource
     {
         return new AnimalResource($animal);
     }
@@ -37,9 +39,10 @@ class AnimalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Animal $animal)
+    public function update(AnimalStoreRequest $request, Animal $animal): AnimalResource
     {
-        //
+        $animal->update($request->all());
+        return new AnimalResource($animal);
     }
 
     /**
@@ -47,6 +50,7 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
-        //
+        $animal->delete();
+        return response()->json();
     }
 }
