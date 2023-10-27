@@ -15,7 +15,3 @@ use App\Http\Controllers\Api\AnimalController;
 */
 
 Route::apiResource('animals', AnimalController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
