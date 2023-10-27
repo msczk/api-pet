@@ -15,6 +15,7 @@ class Animal extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'name'
+        'name',
+        'slug'
     ];
 }

@@ -8,6 +8,7 @@ use App\Http\Resources\AnimalResource;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Str;
 
 class AnimalController extends Controller
 {
@@ -24,7 +25,10 @@ class AnimalController extends Controller
      */
     public function store(AnimalStoreRequest $request): AnimalResource
     {
-        $animal = Animal::create($request->all());
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->input('name'), "-");
+
+        $animal = Animal::create($data);
         return new AnimalResource($animal);
     }
 
@@ -41,7 +45,10 @@ class AnimalController extends Controller
      */
     public function update(AnimalStoreRequest $request, Animal $animal): AnimalResource
     {
-        $animal->update($request->all());
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->input('name'), "-");
+
+        $animal->update($data);
         return new AnimalResource($animal);
     }
 
