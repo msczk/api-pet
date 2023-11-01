@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AnimalController;
+use App\Http\Controllers\Api\DiscordUserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,3 +16,5 @@ use App\Http\Controllers\Api\AnimalController;
 */
 
 Route::apiResource('animals', AnimalController::class);
+
+Route::apiResource('discord-users', DiscordUserController::class);
