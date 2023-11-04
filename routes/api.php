@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AnimalController;
 use App\Http\Controllers\Api\DiscordUserController;
+use App\Http\Controllers\Api\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,14 @@ use App\Http\Controllers\Api\DiscordUserController;
 
 Route::apiResource('animals', AnimalController::class);
 
+Route::prefix('discord-users')->group(function(){
     Route::get('/animals/{id_discord}', [DiscordUserController::class, 'indexAnimals']);
 });
 
 Route::apiResource('discord-users', DiscordUserController::class);
 
+Route::prefix('game')->group(function(){
+    Route::prefix('catch')->group(function(){
+        Route::post('/random', [GameController::class, 'catchRandomAnimal']);
+    });
+});
