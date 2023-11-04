@@ -17,4 +17,8 @@ use App\Http\Controllers\Api\DiscordUserController;
 
 Route::apiResource('animals', AnimalController::class);
 
+    Route::get('/animals/{id_discord}', [DiscordUserController::class, 'indexAnimals']);
+});
+
 Route::apiResource('discord-users', DiscordUserController::class);
+

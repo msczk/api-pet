@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Animal extends Model
 {
@@ -18,4 +19,14 @@ class Animal extends Model
         'name',
         'slug'
     ];
+
+    /**
+     * Returns DiscordUsers that own this animal
+     *
+     * @return BelongsToMany
+     */
+    public function discordUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(DiscordUser::class);
+    }
 }

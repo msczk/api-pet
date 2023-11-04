@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DiscordUserStoreRequest;
-use App\Http\Resources\DiscordUserResource;
+use App\Models\Animal;
 use App\Models\DiscordUser;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\AnimalResource;
+use App\Http\Resources\DiscordUserResource;
+use App\Http\Requests\DiscordUserStoreRequest;
+use App\Http\Requests\DiscordUserAnimalStoreRequest;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class DiscordUserController extends Controller
 {
@@ -57,5 +60,12 @@ class DiscordUserController extends Controller
     {
         $discordUser->delete();
         return response()->json();
+    }
+
+    public function indexAnimals(string $id_discord)
+    {
+        $discordUser = DiscordUser::where('id_discord', $id_discord)->firstOrFail();
+
+        return AnimalResource::collection($discordUser->animals);
     }
 }
