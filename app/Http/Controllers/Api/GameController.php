@@ -16,10 +16,24 @@ class GameController extends Controller
         $id_discord = $request->input('id_discord');
 
         $discordUser = DiscordUser::where('id_discord', $id_discord)->firstOrFail();
+
+        if($discordUser->caughtEveryAnimals())
+        {
+            return response()->json(['error' => 'You already caught every animals available'], 422);
+        }
+
+        $alreadyCaughtIds = $discordUser->animalAlreadyCaughtIds();
         
-        $animals = Animal::all();
+        $animals = Animal::whereNotIn('id', $alreadyCaughtIds)->get();
 
         $random_index = rand(0, count($animals)-1);
+        $animal = $animals[$random_index];       
+
+        $discordUser->animals()->attach($animal, ['hunger' => 3, 'amusement' => 3, 'sleep' => 3]);
+
+        return new AnimalResource($animal);
+    }
+
     public function feedAnimal(FeedRequest $request)
     {
         $id_discord = $request->input('id_discord');
