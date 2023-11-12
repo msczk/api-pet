@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Animal;
 use App\Models\DiscordUser;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AnimalResource;
 use App\Http\Resources\DiscordUserResource;
 use App\Http\Requests\DiscordUserStoreRequest;
 use App\Http\Requests\DiscordUserAnimalStoreRequest;
@@ -30,7 +26,13 @@ class DiscordUserController extends Controller
     {
         $data = $request->all();
 
-        $discordUser = DiscordUser::create($data);
+        $discordUser = DiscordUser::where('id_discord', $data['id_discord'])->first();
+
+        if(!$discordUser)
+        {
+            $discordUser = DiscordUser::create($data);
+        }
+
         return new DiscordUserResource($discordUser);
     }
 
