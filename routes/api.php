@@ -28,4 +28,6 @@ Route::prefix('game')->group(function(){
     Route::prefix('catch')->group(function(){
         Route::post('/random', [GameController::class, 'catchRandomAnimal']);
     });
+
+    Route::put('/feed', [GameController::class, 'feedAnimal']);
 });
