@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\DiscordUser;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AnimalDiscordUserResource;
 use App\Http\Resources\DiscordUserResource;
 use App\Http\Requests\DiscordUserStoreRequest;
-use App\Http\Requests\DiscordUserAnimalStoreRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class DiscordUserController extends Controller
@@ -68,6 +68,6 @@ class DiscordUserController extends Controller
     {
         $discordUser = DiscordUser::where('id_discord', $id_discord)->firstOrFail();
 
-        return AnimalResource::collection($discordUser->animals);
+        return AnimalDiscordUserResource::collection($discordUser->animals);
     }
 }

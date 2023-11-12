@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('animal_discord_user', function (Blueprint $table) {
             $table->integer('discord_user_id');
             $table->integer('animal_id');
+            $table->tinyInteger('hunger')->default(3);
+            $table->tinyInteger('amusement')->default(3);
+            $table->tinyInteger('sleep')->default(3);
             $table->timestamps();
         });
     }

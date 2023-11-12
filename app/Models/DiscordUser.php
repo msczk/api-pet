@@ -24,6 +24,7 @@ class DiscordUser extends Model
      */
     public function animals(): BelongsToMany
     {
-        return $this->belongsToMany(Animal::class)->withTimestamps();
+        return $this->belongsToMany(Animal::class)->withTimestamps()->withPivot(['hunger', 'amusement', 'sleep']);
+    }
     }
 }
