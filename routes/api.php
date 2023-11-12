@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\GameController;
 |
 */
 
-Route::apiResource('animals', AnimalController::class);
+// Route::apiResource('animals', AnimalController::class);
 
 Route::prefix('discord-users')->group(function(){
     Route::get('/animals/{id_discord}', [DiscordUserController::class, 'indexAnimals']);
