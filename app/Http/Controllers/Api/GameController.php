@@ -45,7 +45,17 @@ class GameController extends Controller
         $discordUserAnimal = $discordUser->animals()->where('animal_id', $animal->id)->firstOrFail();
         $hunger = $discordUserAnimal->pivot->hunger;
 
-        $hunger++;
+        if($hunger < 3)
+        {
+            $hunger++;
+
+            $discordUser->animals()->updateExistingPivot($animal->id, ['hunger' => $hunger]);
+        }else{
+            return response()->json(['error' => 'Your '.$animal->name.' isn\'t hungry'], 422);
+        }
+
+        return new AnimalResource($animal);
+    }
 
         $discordUser->animals()->updateExistingPivot($animal->id, ['hunger' => $hunger]);
 
