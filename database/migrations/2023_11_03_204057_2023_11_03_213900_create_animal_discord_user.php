@@ -18,6 +18,8 @@ return new class extends Migration
             $table->tinyInteger('amusement')->default(3);
             $table->tinyInteger('sleep')->default(3);
             $table->timestamps();
+
+            $table->unique(['discord_user_id', 'animal_id']);
         });
     }
 
