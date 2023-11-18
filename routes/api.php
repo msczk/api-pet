@@ -32,4 +32,6 @@ Route::prefix('game')->group(function(){
     Route::put('/feed', [GameController::class, 'feedAnimal']);
 
     Route::put('/play', [GameController::class, 'playAnimal']);
+
+    Route::put('/sleep', [GameController::class, 'sleepAnimal']);
 });

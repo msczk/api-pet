@@ -6,6 +6,7 @@ use App\Models\Animal;
 use App\Models\DiscordUser;
 use App\Http\Requests\FeedRequest;
 use App\Http\Requests\PlayRequest;
+use App\Http\Requests\SleepRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AnimalResource;
 use App\Http\Requests\DiscordUserAnimalStoreRequest;
@@ -58,7 +59,29 @@ class GameController extends Controller
         return new AnimalResource($animal);
     }
 
-        $discordUser->animals()->updateExistingPivot($animal->id, ['hunger' => $hunger]);
+    public function sleepAnimal(SleepRequest $request)
+    {
+        $id_discord = $request->input('id_discord');
+        $animal_slug = $request->input('slug');
+
+        $discordUser = DiscordUser::where('id_discord', $id_discord)->firstOrFail();
+        $animal = Animal::where('slug', $animal_slug)->firstOrFail();
+        
+        $discordUserAnimal = $discordUser->animals()->where('animal_id', $animal->id)->firstOrFail();
+        $sleep = $discordUserAnimal->pivot->sleep;
+
+        if($sleep < 3)
+        {
+            $sleep++;
+
+            $discordUser->animals()->updateExistingPivot($animal->id, ['sleep' => $sleep]);
+        }else{
+            return response()->json(['error' => 'Your '.$animal->name.' isn\'t tired'], 422);
+        }
+
+        return new AnimalResource($animal);
+    }
+
     public function playAnimal(PlayRequest $request)
     {
         $id_discord = $request->input('id_discord');
