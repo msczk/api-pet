@@ -28,7 +28,7 @@ class DiscordUser extends Model
     }
 
     /**
-     * Check if the DiscordUser caught every animals availablee
+     * Check if the DiscordUser caught every animals available
      *
      * @return boolean
      */
